@@ -1,0 +1,24 @@
+a{
+    cursor: pointer;
+    text-align: center;
+}
+
+h5{
+    color:darkblue;
+    text-align: center;
+}
+
+h6{
+    text-align: center;
+}
+
+.bottom-left {
+    position: absolute;
+    bottom: 22px;
+    left: 20px;
+    width: 40px;
+    height: 30px;
+    font-size: 0.6pc;
+    background-color: white;
+ 
+}

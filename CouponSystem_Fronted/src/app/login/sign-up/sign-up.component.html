@@ -1,0 +1,140 @@
+<div class="progress"
+     *ngIf="loading">
+    <div class="progress-bar progress-bar-striped progress-bar-animated"
+         role="progressbar"
+         aria-valuenow="75"
+         aria-valuemin="0"
+         aria-valuemax="100"
+         style="width: 100%">
+        Loading...</div>
+</div>
+
+<div id="container">
+    <br>
+    <br>
+    <div class="container"
+         id="body">
+        <div class="row">
+            <div class="col-12">
+                <br>
+                <br>
+                <h1>Create a new account</h1>
+
+                <div class="col-12">
+                    <form (ngSubmit)="onSubmit()"
+                          #f="ngForm">
+                        <div class="row">
+                            <div class="col-12">
+                                <div class="row">
+                                    <div class="col-5 form-group">
+                                        <label for="name">Full Name</label>
+                                        <input type="text"
+                                               placeholder="Full name"
+                                               name="name"
+                                               id="name"
+                                               class="form-control"
+                                               [(ngModel)]=user.name
+                                               required
+                                               minlength="5"
+                                               #n='ngModel'>
+                                        <p *ngIf="!n.valid && n.touched"
+                                           class="help-block">
+                                            You must insert a name of at least 5 letters</p>
+                                        <br>
+
+                                        <label for="email">Email</label>
+                                        <input type="email"
+                                               placeholder="Email"
+                                               name="email"
+                                               id="email"
+                                               class="form-control"
+                                               [(ngModel)]=user.email
+                                               required
+                                               minlength="5"
+                                               email
+                                               #e='ngModel'>
+                                        <p *ngIf="!e.valid && e.touched"
+                                           class="help-block">
+                                            Please enter your Real Email</p>
+                                        <br>
+
+                                        <label for="password">Password</label>
+                                        <br>
+                                        <input type="password"
+                                               placeholder="Password"
+                                               name="password"
+                                               id="password"
+                                               class="form-controll"
+                                               [(ngModel)]=user.password
+                                               minlength="8"
+                                               required
+                                               #p='ngModel'>
+                                        <p *ngIf="!p.valid && p.touched">
+                                            Must contain at least 8 or more characters</p>
+                                        <br>
+                                        <br>
+
+                                        <label for="passwordConfirm"> Confirm Password</label>
+                                        <br>
+                                        <input type="password"
+                                               placeholder="Confirm password"
+                                               name="passwordConfirm"
+                                               id="passwordConfirm"
+                                               class="form-controll"
+                                               [(ngModel)]=user.confirmPassword
+                                               required
+                                               #p1='ngModel'
+                                               pattern="{{p.value}}">
+                                        <p *ngIf="!p1.valid && p1.touched ">
+                                            There is no match!</p>
+                                        <br>
+                                        <br>
+
+                                        <label for="type">Type of user</label>
+                                        <br>
+                                        <input type="radio"
+                                               name="type"
+                                               value="COMPANY"
+                                               class="form-controll"
+                                               [(ngModel)]=user.type
+                                               required>
+                                        Company
+                                        <br>
+                                        <input type="radio"
+                                               name="type"
+                                               value="CUSTOMER"
+                                               class="form-controll"
+                                               [(ngModel)]=user.type
+                                               required>
+                                        Customer
+                                        <br>
+                                    </div>
+                                </div>
+
+                                <div class="row">
+                                    <div class="col-5 btn-group"
+                                         role="group">
+                                        <button class="btn btn-success"
+                                                [disabled]="!f.valid"
+                                                type="submit">Submit</button>
+                                        <button class="btn btn-danger"
+                                                (click)=onClear()
+                                                type="button">Clear</button>
+                                        <button class="btn btn-secondary"
+                                                [routerLink]="['/login']"
+                                                type="button">Cancel</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+                <br>
+                <br>
+                <br>
+                <h3 *ngIf="success">You created your new acount! Please <a [routerLink]="['/login']">login</a> </h3>
+                <p>{{errorMessage}}</p>
+            </div>
+        </div>
+    </div>
+</div>

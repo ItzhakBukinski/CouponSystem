@@ -1,0 +1,83 @@
+<div id="body">
+    <div class="row justify-content-center">
+        <h1>MyCoupons</h1>
+    </div>
+    <br>
+    <br>
+    <h5>Find extraordinary coupons and discounts from the best companies!</h5>
+    <br>
+    <h5 *ngIf="logged">Here you can find and buy new coupons!</h5>
+
+    <div class="dropdown dropright">
+        <button type="button"
+                class="btn btn-warning dropdown-toggle"
+                data-toggle="dropdown">
+            Filter coupons</button>
+        <div class="dropdown-menu">
+            <button class="dropdown-item"
+                    type="button"
+                    (click)="fetchByCategory('FURNITURE')">Furnitures</button>
+            <button class="dropdown-item"
+                    type="button"
+                    (click)="fetchByCategory('COMPUTERS')">Computers</button>
+            <button class="dropdown-item"
+                    type="button"
+                    (click)="fetchByCategory('ELECTRONICS')">Electronics</button>
+            <button class="dropdown-item"
+                    type="button"
+                    (click)="fetchByCategory('CLOTHES')">Clothes</button>
+            <button class="dropdown-item"
+                    type="button"
+                    (click)="fetchByCategory('TOYS')">Toys</button>
+            <button class="dropdown-item"
+                    type="button"
+                    (click)="fetchByCategory('FOOD')">Food</button>
+            <div class="input-group mb-3">
+                <div class="input-group-prepend">
+                    <button class="dropdown-item"
+                            type="button"
+                            (click)="fetchByPrice()"
+                            [disabled]="!price">Filter coupons by price:</button>
+                </div>
+                <input type="number"
+                       class="form-control"
+                       placeholder="price"
+                       [(ngModel)]=price
+                       #p='ngModel'>
+            </div>
+            <div class="input-group mb-3">
+                <div class="input-group-prepend">
+                    <button class="dropdown-item"
+                            type="button"
+                            (click)="fetchByDate()"
+                            [disabled]="!date">Filter coupons by date:</button>
+                </div>
+                <input type="date"
+                       class="form-control"
+                       placeholder="date"
+                       [(ngModel)]=date
+                       #d='ngModel'>
+            </div>
+            <button class="dropdown-item"
+                    type="button"
+                    (click)="ngOnInit()">Return to all coupons</button>
+        </div>
+    </div>
+    <br>
+
+    <div class="row justify-content-center">
+        <h1 *ngIf="noCoupons">No coupons here to see</h1>
+    </div>
+
+    <div class="row"
+         *ngIf="!errorMessage; else showError">
+        <div *ngFor="let coupon of coupons ; let i=index"
+             class="col-md-3 col-sm-6 ">
+            <app-coupon-item [coupon]='coupon'
+                             [id]='i'></app-coupon-item>
+        </div>
+    </div>
+    <ng-template #showError>
+        <h1>{{errorMessage}}</h1>
+    </ng-template>
+</div>

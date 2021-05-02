@@ -1,0 +1,118 @@
+<div class="progress"
+     *ngIf="loading">
+    <div class="progress-bar progress-bar-striped progress-bar-animated"
+         role="progressbar"
+         aria-valuenow="75"
+         aria-valuemin="0"
+         aria-valuemax="100"
+         style="width: 100%">
+        Loading...</div>
+</div>
+
+<div id="body">
+    <div class="container">
+        <p>{{errorMessage}}</p>
+
+        <div class="row">
+            <div class="col-6">
+                <div class="row">
+                    <h1 *ngIf="userType!= 'admin'; else adminUser">My coupons</h1>
+                    <ng-template #adminUser>
+                        <h1>System coupons</h1>
+                    </ng-template>
+                </div>
+                <br>
+                <br>
+
+                <div class="row">
+                    <button class="btn btn-success"
+                            *ngIf="userType==='customer'"
+                            [routerLink]="['/customer-new-coupons']">Buy new coupons!</button>
+                </div>
+
+                <div class="row">
+                    <div class="btn-group"
+                         role="group">
+                        <button class="btn btn-success"
+                                *ngIf="userType==='admin'"
+                                [routerLink]="['/users']">See list of all users</button>
+                        <div class="dropdown"
+                             *ngIf="userType==='company'&& coupons.length>1">
+                            <button class="btn btn-warning dropdown-toggle"
+                                    type="button"
+                                    id="dropdownMenu2"
+                                    data-toggle="dropdown"
+                                    aria-haspopup="true"
+                                    aria-expanded="false">
+                                Sort by
+                            </button>
+                            <div class="dropdown-menu"
+                                 aria-labelledby="dropdownMenu2">
+                                <button class="dropdown-item"
+                                        type="button"
+                                        (click)="sortBy(2)">Title</button>
+                                <button class="dropdown-item"
+                                        type="button"
+                                        (click)="sortBy(1)">StartDate</button>
+                                <button class="dropdown-item"
+                                        type="button"
+                                        (click)="sortBy(0)">EndDate</button>
+                                <button class="dropdown-item"
+                                        type="button"
+                                        (click)="sortBy(3)">Sales</button>
+                            </div>
+                        </div>
+                        <button class="btn btn-primary"
+                                *ngIf="userType==='company'"
+                                [routerLink]="['new']">Add new coupon</button>
+
+                        <button *ngIf="coupons.length>1 &&  (userType==='company'|| userType==='admin')"
+                                class="btn btn-danger"
+                                (click)="onDeleteAllCoupons()">Delete all coupons</button>
+                    </div>
+                </div>
+                <br>
+
+                <ul class="list-group">
+                    <li *ngFor="let coupon of coupons; let i=index"
+                        class="list-group-item list-group-item-primary">
+                        <div>
+                            <h4>{{coupon.title}}</h4>
+                            <img src="{{coupon.imageURL}}"
+                                 width="200"
+                                 height="100"
+                                 alt="coupon image">
+                            <br>
+                            <br>
+                            <h6>{{coupon.description}}</h6>
+                            <h6 [ngStyle]="{'color': checkEndDate(coupon)}"> <b>EndDate: </b>{{coupon.endDate}}</h6>
+
+                            <h6 *ngIf="userType==='company'"><b>Sales: </b>{{ coupon.sales}} <b>StartDate:
+                                </b>{{coupon.startDate}} </h6>
+                            <br>
+                            <div class="row">
+                                <div class="btn-group"
+                                     role="group">
+                                    <button class="btn btn-secondary"
+                                            *ngIf="userType==='company'"
+                                            (click)="onEditClicked(i)">Edit coupon</button>
+                                    <button class="btn btn-danger"
+                                            *ngIf="userType==='company' || userType==='admin'"
+                                            (click)="onDelete(i)">Delete coupon</button>
+                                </div>
+                            </div>
+                        </div>
+                    </li>
+                </ul>
+                <br>
+
+
+
+            </div>
+
+            <div class="col-6">
+                <router-outlet></router-outlet>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,231 @@
+<div class="progress"
+     *ngIf="loading">
+    <div class="progress-bar progress-bar-striped progress-bar-animated"
+         role="progressbar"
+         aria-valuenow="75"
+         aria-valuemin="0"
+         aria-valuemax="100"
+         style="width: 100%">
+        Loading...</div>
+</div>
+
+<div class="container">
+    <div *ngIf="editMode; else new"
+         class="row">
+        <h1>Edit coupon</h1>
+    </div>
+    <ng-template #new>
+
+        <h1>Add new coupon</h1>
+    </ng-template>
+
+    <br>
+    <br>
+
+    <form (ngSubmit)="onSubmit()"
+          #f="ngForm">
+        <div class="row">
+            <div class="col-7">
+                <div class="form-group">
+                    <label for="title"> <b>Title</b> </label>
+                    <input [attr.disabled]="editMode? '':null"
+                           type="text"
+                           placeholder="Title"
+                           name="title"
+                           id="title"
+                           class="form-control"
+                           [(ngModel)]=coupon.title
+                           minlength="5"
+                           required
+                           #t='ngModel'>
+                    <p *ngIf="!t.valid && t.touched">
+                        Must contain at least 5 or more characters</p>
+                    <p *ngIf="!editMode; else br"
+                       style="color: blue;">Pay attention to the title! You will not have the ability to update it
+                        later!</p>
+                    <ng-template #br>
+                        <br>
+                        <br>
+                    </ng-template>
+
+                </div>
+
+                <div class="form-group">
+                    <label for="description"><b>Description</b> </label>
+                    <input type="text"
+                           placeholder="Description"
+                           name="description"
+                           id="description"
+                           class="form-control"
+                           [(ngModel)]=coupon.description
+                           minlength="8"
+                           required
+                           #d='ngModel'>
+                    <p *ngIf="!d.valid && d.touched">
+                        Must contain at least 8 or more characters</p>
+                </div>
+
+                <div class="form-group">
+                    <label for="category"><b>Category</b> </label>
+                    <br>
+                    <input type="radio"
+                           name="category"
+                           value="FOOD"
+                           [(ngModel)]=coupon.category
+                           required>
+                    Food
+                    <br>
+                    <input type="radio"
+                           name="category"
+                           value="CLOTHES"
+                           [(ngModel)]=coupon.category
+                           required>
+                    Clothes
+                    <br>
+                    <input type="radio"
+                           name="category"
+                           value="FURNITURE"
+                           [(ngModel)]=coupon.category
+                           required>
+                    Furniture
+                    <br>
+                    <input type="radio"
+                           name="category"
+                           value="COMPUTERS"
+                           [(ngModel)]=coupon.category
+                           required>
+                    Computers
+                    <br>
+                    <input type="radio"
+                           name="category"
+                           value="TOYS"
+                           [(ngModel)]=coupon.category
+                           required>
+                    Toys
+                    <br>
+                    <input type="radio"
+                           name="category"
+                           value="ELECTRONICS"
+                           [(ngModel)]=coupon.category
+                           required>
+                    Electronics
+                    <br>
+                    <br>
+                </div>
+
+                <div class="form-group">
+                    <label for="startDate"><b>Start date</b> </label>
+                    <br>
+                    <input type="date"
+                           placeholder="Start date"
+                           name="StartDate"
+                           id="StartDate"
+                           class="form-control"
+                           [(ngModel)]=coupon.startDate
+                           required>
+                    <br>
+                    <br>
+                </div>
+            </div>
+
+            <div class="col-5">
+                <div class="form-group">
+                    <label for="amount"><b>Amount</b> </label>
+                    <br>
+                    <input type="number"
+                           placeholder="Amount"
+                           name="amount"
+                           id="amount"
+                           class="form-control"
+                           [(ngModel)]=coupon.amount
+                           min="10"
+                           required
+                           #a='ngModel'
+                           [ngStyle]="{'border': a.value<10&& a.touched? '3px solid red':''}">
+                    <p *ngIf="a.value<10 && a.touched">
+                        Minimum 10 coupons!</p>
+                </div>
+                <br>
+                <br>
+                <div class="form-group">
+                    <label for="price"><b>Price</b> </label>
+                    <br>
+                    <input type="number"
+                           placeholder="Price"
+                           name="price"
+                           id="price"
+                           class="form-control"
+                           [(ngModel)]=coupon.price
+                           required
+                           #p='ngModel'>
+                    <p *ngIf="!p.valid && p.touched">
+                        required!</p>
+                </div>
+                <br>
+
+                <div class="form-group">
+                    <label for="imageURL"><b>Image URL</b> </label>
+                    <br>
+                    <input type="text"
+                           placeholder="Image URL"
+                           name="imageURL"
+                           id="imageURL"
+                           class="form-control"
+                           [(ngModel)]=coupon.imageURL
+                           minlength="8"
+                           maxlength="255"
+                           required
+                           #i='ngModel'>
+                    <p *ngIf="!i.valid && i.touched">
+                    </p>
+                </div>
+
+                <div class="form-group">
+                    <label for="companyLogo"><b>Company logo URL</b> </label>
+                    <br>
+                    <input type="text"
+                           placeholder="Company logo URL"
+                           name="companyLogo"
+                           id="companyLogo"
+                           class="form-control"
+                           [(ngModel)]=coupon.logo
+                           minlength="8"
+                           maxlength="255"
+                           required
+                           #l='ngModel'>
+                    <p *ngIf="!l.valid && l.touched">
+                        Must contain at least 8 characters and no more than 255 characters</p>
+                    <br>
+                </div>
+
+                <div class="form-group">
+                    <label for="endDate"><b>End date</b> </label>
+                    <br>
+                    <input type="date"
+                           placeholder="End date"
+                           name="endDate"
+                           id="endDate"
+                           class="form-control"
+                           [(ngModel)]=coupon.endDate
+                           required>
+                    <br>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="btn-group"
+                 role="group">
+                <button class="btn btn-success"
+                        [disabled]="!f.valid || a.value<10"
+                        type="submit">Submit</button>
+                <button class="btn btn-danger"
+                        (click)=onClear()
+                        type="button">Clear</button>
+                <button class="btn btn-secondary"
+                        [routerLink]="['/user']"
+                        type="button">Cancel</button>
+            </div>
+        </div>
+    </form>
+</div>

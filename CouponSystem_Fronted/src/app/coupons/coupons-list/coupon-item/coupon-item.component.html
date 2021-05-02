@@ -1,0 +1,19 @@
+<a (click)="onClick()"
+   class="list-group-item">
+     <img [src]="coupon.imageURL"
+          alt="The image of the coupon"
+          class="img-fluid"
+          style="width: 500px; height: 200px;">
+     <div class="bottom-left">
+          <img [src]="coupon.logo"
+               alt="company logo"
+               width="40"
+               height="30">
+     </div>
+</a>
+
+<a (click)="onClick()">
+     <h5>{{coupon.title}} only for {{coupon.price}}$</h5>
+     <h6 [ngStyle]="{'color': checkEndDate()}">expries on {{coupon.endDate}}!</h6>
+     <br>
+</a>
