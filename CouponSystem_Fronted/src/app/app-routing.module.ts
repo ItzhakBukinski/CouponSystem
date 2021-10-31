@@ -7,7 +7,6 @@ import { CouponsListComponent } from './coupons/coupons-list/coupons-list.compon
 import { CouponsComponent } from './coupons/coupons.component';
 import { LoginComponent } from './login/login.component';
 import { SignUpComponent } from './login/sign-up/sign-up.component';
-import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { UserComponent } from './user/user.component';
 import { CouponEditComponent } from './coupons/coupon-edit/coupon-edit.component';
 import { UsersListComponent } from './user/users-list/users-list.component';
